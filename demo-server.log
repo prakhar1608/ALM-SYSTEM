@@ -1,0 +1,56 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< com.alm:alm-system >-------------------------
+[INFO] Building ALM System 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.3.5:run (default-cli) > test-compile @ alm-system >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ alm-system ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 5 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ alm-system ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 8 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ alm-system ---
+[INFO] skip non existing resourceDirectory C:\Prakhar\Batch-15-Group-1\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ alm-system ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 2 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] 
+[INFO] <<< spring-boot:3.3.5:run (default-cli) < test-compile @ alm-system <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.5:run (default-cli) @ alm-system ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-09-16T16:44:57.866+05:30  INFO 26848 --- [alm-system] [           main] com.alm.AlmApplication                   : Starting AlmApplication using Java 17.0.12 with PID 26848 (C:\Prakhar\Batch-15-Group-1\target\classes started by Prakhar in C:\Prakhar\Batch-15-Group-1)
+2026-09-16T16:44:57.875+05:30  INFO 26848 --- [alm-system] [           main] com.alm.AlmApplication                   : The following 1 profile is active: "demo"
+2026-09-16T16:45:06.711+05:30  INFO 26848 --- [alm-system] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-09-16T16:45:06.745+05:30  INFO 26848 --- [alm-system] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-16T16:45:06.769+05:30  INFO 26848 --- [alm-system] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-09-16T16:45:06.827+05:30  INFO 26848 --- [alm-system] [           main] o.a.c.c.C.[Tomcat].[localhost].[/alm]    : Initializing Spring embedded WebApplicationContext
+2026-09-16T16:45:06.827+05:30  INFO 26848 --- [alm-system] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 8919 ms
+2026-09-16T16:45:06.909+05:30  INFO 26848 --- [alm-system] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-16T16:45:07.081+05:30  INFO 26848 --- [alm-system] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:alm_demo user=SA
+2026-09-16T16:45:07.102+05:30  INFO 26848 --- [alm-system] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-16T16:45:07.811+05:30  INFO 26848 --- [alm-system] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name databaseUserDetailsService
+2026-09-16T16:45:07.852+05:30  INFO 26848 --- [alm-system] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-09-16T16:45:08.230+05:30  INFO 26848 --- [alm-system] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/alm'
+2026-09-16T16:45:08.238+05:30  INFO 26848 --- [alm-system] [           main] com.alm.AlmApplication                   : Started AlmApplication in 10.704 seconds (process running for 10.967)
+2026-09-16T16:45:08.374+05:30  INFO 26848 --- [alm-system] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/alm]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-16T16:45:08.380+05:30  INFO 26848 --- [alm-system] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-16T16:45:08.380+05:30  INFO 26848 --- [alm-system] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms

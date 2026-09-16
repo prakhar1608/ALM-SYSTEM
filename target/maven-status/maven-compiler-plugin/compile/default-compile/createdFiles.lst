@@ -1,0 +1,11 @@
+com\alm\AlmApplication.class
+com\alm\api\ApiExceptionHandler.class
+com\alm\api\ScenarioController$Scenario.class
+com\alm\api\PortfolioController$Position.class
+com\alm\api\PortfolioController.class
+com\alm\config\DatabaseUserDetailsService.class
+com\alm\service\RiskCalculator$ScenarioImpact.class
+com\alm\api\ReportController.class
+com\alm\config\SecurityConfig.class
+com\alm\api\ScenarioController.class
+com\alm\service\RiskCalculator.class

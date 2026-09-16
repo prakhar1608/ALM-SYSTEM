@@ -1,0 +1,13 @@
+{
+  "name": "oj-alm-ui",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Oracle JET 10 client module for the ALM REST API",
+  "dependencies": {
+    "@oracle/oraclejet": "10.0.0"
+  },
+  "scripts": {
+    "install:jet": "npm install",
+    "note": "Use the Oracle JET CLI to generate/build a JET 10 shell, then copy src/js/alm-dashboard.js into it."
+  }
+}

@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:alm_demo;MODE=Oracle;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=true
+    username: sa
+    password: ''
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:demo-schema.sql
+      data-locations: classpath:demo-data.sql

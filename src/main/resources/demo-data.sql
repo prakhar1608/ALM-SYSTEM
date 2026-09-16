@@ -1,0 +1,15 @@
+INSERT INTO users (full_name,email,password_hash,role,status) VALUES ('System Administrator','admin@alm.local','$2a$10$5hDDFMtwrzvP.teYQ6I/VOoSflVd/2ct/AJbRrRIRjxAj.ageqZPm','ADMIN','ACTIVE');
+INSERT INTO users (full_name,email,password_hash,role,status) VALUES ('Ananya Sharma','ananya.sharma@alm.local','$2a$10$5hDDFMtwrzvP.teYQ6I/VOoSflVd/2ct/AJbRrRIRjxAj.ageqZPm','ANALYST','ACTIVE');
+INSERT INTO users (full_name,email,password_hash,role,status) VALUES ('Rahul Verma','rahul.verma@alm.local','$2a$10$5hDDFMtwrzvP.teYQ6I/VOoSflVd/2ct/AJbRrRIRjxAj.ageqZPm','VIEWER','ACTIVE');
+INSERT INTO assets (asset_name,asset_value,principal_amount,status) VALUES ('Corporate Term Loan - Alpha Industries',5200000,5000000,'ACTIVE');
+INSERT INTO assets (asset_name,asset_value,principal_amount,status) VALUES ('Government Bond Portfolio',3100000,3000000,'ACTIVE');
+INSERT INTO assets (asset_name,asset_value,principal_amount,status) VALUES ('Short-Term Cash Reserve',1500000,1500000,'ACTIVE');
+INSERT INTO liabilities (liability_name,liability_value,principal_amount,status) VALUES ('Retail Term Deposits',4200000,4000000,'ACTIVE');
+INSERT INTO liabilities (liability_name,liability_value,principal_amount,status) VALUES ('Interbank Borrowing',2500000,2500000,'ACTIVE');
+INSERT INTO liabilities (liability_name,liability_value,principal_amount,status) VALUES ('Savings Account Deposits',1900000,1800000,'ACTIVE');
+INSERT INTO scenarios (scenario_name,scenario_type,interest_rate_shock,status) VALUES ('Interest Rate Increase - 2 Percent','INTEREST_RATE',2,'ACTIVE');
+INSERT INTO scenarios (scenario_name,scenario_type,interest_rate_shock,status) VALUES ('Interest Rate Decrease - 1 Percent','INTEREST_RATE',-1,'ACTIVE');
+INSERT INTO scenarios (scenario_name,scenario_type,interest_rate_shock,status) VALUES ('Liquidity Stress Test','LIQUIDITY',0,'ACTIVE');
+INSERT INTO scenario_results (scenario_id,asset_impact,liability_impact,net_impact,risk_level) VALUES (1,-180000,90000,-270000,'HIGH');
+INSERT INTO scenario_results (scenario_id,asset_impact,liability_impact,net_impact,risk_level) VALUES (2,85000,-40000,125000,'MEDIUM');
+INSERT INTO scenario_results (scenario_id,asset_impact,liability_impact,net_impact,risk_level) VALUES (3,-50000,175000,-225000,'CRITICAL');
