@@ -1,30 +1,43 @@
 package com.alm.api;
 
-import java.math.BigDecimal;
-import java.util.*;
-import org.springframework.http.*;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.alm.dto.DashboardResponse;
+import com.alm.dto.PositionRequest;
+import com.alm.model.Asset;
+import com.alm.model.Liability;
+import com.alm.service.AssetService;
+import com.alm.service.DashboardService;
+import com.alm.service.LiabilityService;
+import jakarta.validation.Valid;
+import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@RestController @RequestMapping("/api")
+@RestController
+@RequestMapping("/api")
 public class PortfolioController {
- private final JdbcTemplate jdbc;
- public PortfolioController(JdbcTemplate jdbc){this.jdbc=jdbc;}
- @GetMapping("/dashboard") public Map<String,Object> dashboard(){
-   Map<String,Object> a=jdbc.queryForMap("select nvl(sum(asset_value),0) total_value, nvl(sum(principal_amount),0) principal_total from assets where status='ACTIVE'");
-   Map<String,Object> l=jdbc.queryForMap("select nvl(sum(liability_value),0) total_value, nvl(sum(principal_amount),0) principal_total from liabilities where status='ACTIVE'");
-   BigDecimal av=(BigDecimal)a.get("TOTAL_VALUE"), lv=(BigDecimal)l.get("TOTAL_VALUE");
-   return Map.of("assetValue",av,"liabilityValue",lv,"netPosition",av.subtract(lv),"liquidityRatio",lv.signum()==0?0:av.divide(lv,4,java.math.RoundingMode.HALF_UP),"latestScenarios",jdbc.queryForList("select s.scenario_id,s.scenario_name,s.scenario_type,s.interest_rate_shock,r.net_impact,r.risk_level from scenarios s left join scenario_results r on r.scenario_id=s.scenario_id order by s.scenario_id desc fetch first 5 rows only"));
- }
- @GetMapping("/assets") public List<Map<String,Object>> assets(){return jdbc.queryForList("select * from assets order by asset_id desc");}
- @GetMapping("/liabilities") public List<Map<String,Object>> liabilities(){return jdbc.queryForList("select * from liabilities order by liability_id desc");}
- @PostMapping("/assets") @PreAuthorize("hasAnyRole('ADMIN','ANALYST')") ResponseEntity<?> createAsset(@RequestBody Position p){ return create("assets","asset_name","asset_value",p); }
- @PostMapping("/liabilities") @PreAuthorize("hasAnyRole('ADMIN','ANALYST')") ResponseEntity<?> createLiability(@RequestBody Position p){return create("liabilities","liability_name","liability_value",p);}
- private ResponseEntity<?> create(String table,String nameCol,String valueCol,Position p){
-   if(p.name()==null||p.name().isBlank()||p.value()==null||p.principal()==null) throw new IllegalArgumentException("name, value and principal are required");
-   jdbc.update("insert into "+table+" ("+nameCol+","+valueCol+",principal_amount,status) values (?,?,?,?)",p.name(),p.value(),p.principal(),p.status()==null?"ACTIVE":p.status());
-   return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message","Position created"));
- }
- public record Position(String name,BigDecimal value,BigDecimal principal,String status){}
+  private final DashboardService dashboardService;
+  private final AssetService assetService;
+  private final LiabilityService liabilityService;
+  public PortfolioController(DashboardService dashboardService, AssetService assetService, LiabilityService liabilityService) {
+    this.dashboardService = dashboardService; this.assetService = assetService; this.liabilityService = liabilityService;
+  }
+  @GetMapping("/dashboard") public DashboardResponse dashboard() { return dashboardService.getDashboard(); }
+  @GetMapping("/assets") public List<Asset> assets() { return assetService.findAll(); }
+  @GetMapping("/assets/{id}") public Asset asset(@PathVariable long id) { return assetService.findById(id); }
+  @PostMapping("/assets") @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+  public ResponseEntity<Asset> createAsset(@Valid @RequestBody PositionRequest request) { return ResponseEntity.status(HttpStatus.CREATED).body(assetService.create(request)); }
+  @PutMapping("/assets/{id}") @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+  public Asset updateAsset(@PathVariable long id, @Valid @RequestBody PositionRequest request) { return assetService.update(id, request); }
+  @DeleteMapping("/assets/{id}") @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+  @ResponseStatus(HttpStatus.NO_CONTENT) public void deactivateAsset(@PathVariable long id) { assetService.deactivate(id); }
+  @GetMapping("/liabilities") public List<Liability> liabilities() { return liabilityService.findAll(); }
+  @GetMapping("/liabilities/{id}") public Liability liability(@PathVariable long id) { return liabilityService.findById(id); }
+  @PostMapping("/liabilities") @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+  public ResponseEntity<Liability> createLiability(@Valid @RequestBody PositionRequest request) { return ResponseEntity.status(HttpStatus.CREATED).body(liabilityService.create(request)); }
+  @PutMapping("/liabilities/{id}") @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+  public Liability updateLiability(@PathVariable long id, @Valid @RequestBody PositionRequest request) { return liabilityService.update(id, request); }
+  @DeleteMapping("/liabilities/{id}") @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+  @ResponseStatus(HttpStatus.NO_CONTENT) public void deactivateLiability(@PathVariable long id) { liabilityService.deactivate(id); }
 }

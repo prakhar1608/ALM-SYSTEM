@@ -8,6 +8,10 @@ A Java 17 / Spring Boot REST application for the supplied ALM case study. It man
 - Spring Security HTTP Basic authentication with BCrypt password hashes
 - JavaScript responsive UI plus an Oracle JET 10 module in `frontend/oj-alm-ui`, JUnit 5, Selenium dependency, Insomnia collection, and GitHub Actions CI
 
+## Application structure
+
+The backend uses a layered design: REST controllers handle HTTP concerns, services contain business rules and transactions, DAOs own SQL access, and typed models/DTOs define the API contract. Assets, liabilities, and scenarios support create, read, update, and soft-delete operations; deletion changes the record status to `INACTIVE` so financial data remains traceable.
+
 ## Run locally
 
 1. In Oracle SQL Developer / SQLcl, run `ALM_5_Table_Oracle26ai.sql`, then `ALM_5_Table_Sample_Data.sql`.
@@ -30,8 +34,9 @@ Use `mvn spring-boot:run -Dspring-boot.run.profiles=demo` to launch a complete d
 | Endpoint | Purpose | Role |
 | --- | --- | --- |
 | `GET /api/dashboard` | Asset, liability, net position and liquidity summary | authenticated |
-| `GET/POST /api/assets`, `GET/POST /api/liabilities` | Portfolio data management | GET: authenticated; POST: analyst/admin |
-| `GET/POST /api/scenarios` | Scenario management | GET: authenticated; POST: analyst/admin |
+| `GET/POST /api/assets`, `GET/POST /api/liabilities` | List or create portfolio positions | GET: authenticated; POST: analyst/admin |
+| `GET/PUT/DELETE /api/assets/{id}`, `GET/PUT/DELETE /api/liabilities/{id}` | Retrieve, update, or archive a position | GET: authenticated; PUT/DELETE: analyst/admin |
+| `GET/POST /api/scenarios`, `GET/PUT/DELETE /api/scenarios/{id}` | List, create, retrieve, update, or archive scenarios | GET: authenticated; POST/PUT/DELETE: analyst/admin |
 | `POST /api/scenarios/{id}/run` | Calculate interest-rate sensitivity | analyst/admin |
 | `GET /api/reports/risk` | Scenario and portfolio report | authenticated |
 
